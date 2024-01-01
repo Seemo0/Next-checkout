@@ -81,18 +81,25 @@ const Checkout = () => {
     <div className="flex flex-col bg-white shadow-md rounded-lg p-2 space-y-4">
       <span className="font-bold">Paycheck</span>
       <span className="flex flex-col space-y-2">
-        <CustomInput formik={formik} label="Email" name="email" type="email" />
+        <CustomInput
+          formik={formik}
+          label="Email"
+          name="email"
+          placeholder="type your email"
+          type="email"
+        />
       </span>
       <span className="flex flex-col space-y-1">
         <CustomInput
           formik={formik}
+          placeholder="1234 1234 1234 1234"
           label="Card information"
           name="cardNumber"
           type="text"
         />
         <span className="flex">
-          <CustomInput formik={formik} name="expirationDate" type="text" />
-          <CustomInput formik={formik} name="cvv" type="text" />
+          <CustomInput formik={formik} placeholder="12 23" name="expirationDate" type="text" />
+          <CustomInput formik={formik} placeholder="12" name="cvv" type="text" />
         </span>
       </span>
       <span className="flex flex-col space-y-1">
@@ -114,6 +121,7 @@ const Checkout = () => {
       </span>
       <CustomInput
         formik={formik}
+        placeholder="type your card name"
         label="Cardholder name"
         name="name"
         type="text"

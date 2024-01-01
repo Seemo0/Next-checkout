@@ -2,6 +2,7 @@ import React from "react";
 
 interface InputProps {
   label?: string;
+  placeholder?: string;
   name: string;
   formik: any;
   type: string;
@@ -14,6 +15,7 @@ const CustomInput: React.FC<InputProps> = ({
   name,
   type = "text",
   onChange,
+  placeholder,
 }) => {
   const handleChange = (event: any) => {
     const value = event.target.value;
@@ -41,13 +43,14 @@ const CustomInput: React.FC<InputProps> = ({
       )}
       <input
         type={type}
+        placeholder={placeholder}
         name={name}
         value={formik.values[name]}
         onChange={onChange ?? handleChange}
         onBlur={formik.handleBlur}
         className={`${
           formik.touched[name] && formik.errors[name] ? "border-red-500" : ""
-        } border rounded-md p-2`}
+        } border-gray-300 rounded-md p-2`}
       />
     </div>
   );
