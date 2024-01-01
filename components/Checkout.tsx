@@ -78,8 +78,8 @@ const Checkout = () => {
   }, [formik.values, formik.errors]);
 
   return (
-    <div className="flex flex-col space-y-4">
-      <span>Paycheck</span>
+    <div className="flex flex-col bg-white shadow-md rounded-lg p-2 space-y-4">
+      <span className="font-bold">Paycheck</span>
       <span className="flex flex-col space-y-2">
         <CustomInput formik={formik} label="Email" name="email" type="email" />
       </span>
@@ -120,7 +120,7 @@ const Checkout = () => {
       />
       <button
         disabled={loading || !formik.isValid || !formik.dirty}
-        className={`bg-[#0D2538] rounded-xl text-white relative ${
+        className={`bg-[#0D2538] rounded-xl text-white relative h-8 ${
           loading || !formik.isValid || !formik.dirty
             ? "cursor-not-allowed"
             : "cursor-pointer"

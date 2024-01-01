@@ -4,7 +4,7 @@ import Checkout from "./Checkout";
 
 const CheckoutPage = () => {
   return (
-    <div className="flex gap-10 flex-col lg:flex-row justify-between h-[100%] bg-white">
+    <div className="flex gap-10 flex-col lg:flex-row bg-[#F4F7FA] p-6 rounded-lg shadow-lg">
       <Products />
       <Checkout />
     </div>

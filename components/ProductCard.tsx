@@ -11,7 +11,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ items }) => {
   return (
-    <div className="flex gap-1 items-center justify-between">
+    <div className="flex gap-1 items-center justify-between border-b border-gray-300">
       <div className="flex flex-col space-y-2">
         <span>Name: {items.name} </span>
         <span>Quantity: {items.quantity} </span>

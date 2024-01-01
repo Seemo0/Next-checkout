@@ -28,15 +28,15 @@ const Products = () => {
   if (isLoading) return <div>isLoading...</div>;
   if (isError) return <div>Error during fetch , try again </div>;
   return (
-    <div className="flex flex-col px-6 bg-white p-3 gap-2">
-      <div className="flex justify-between p-1">
-        <span>{data?.customer.name}'s Cart</span>
-        <span>{data?.order.totalPrice}$</span>
-      </div>
-      <div className="flex flex-col space-y-2 py-10 justify-center">
+    <div className="flex flex-col px-6 bg-white rounded-lg shadow-md w-96 p-3 gap-2">
+      <span className="flex font-bold">{data?.customer.name}'s Cart</span>
+      <div className="flex flex-col space-y-5 py-10 justify-center">
         {data?.order?.items.map((item, id) => (
           <ProductCard key={id} items={item} />
         ))}
+        <span className="flex justify-end font-bold">
+          {data?.order.totalPrice}$
+        </span>
       </div>
     </div>
   );
