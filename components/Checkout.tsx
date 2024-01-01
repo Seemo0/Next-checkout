@@ -7,12 +7,6 @@ import * as Yup from "yup";
 import CustomInput from "./form-inputs/CustomInput";
 import RadioInput from "./form-inputs/RadioInput";
 
-const submit = async (paymentInfos: any) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  return { success: true, paymentInfos };
-};
-
 const Checkout = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -46,12 +40,10 @@ const Checkout = () => {
 
   const mutation = useMutation({
     mutationKey: ["checkout"],
-    mutationFn: async () => {
-      const payment = localStorage.getItem("payment");
+    mutationFn: async (paymentData) => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const response = await submit(JSON.parse(payment!));
-
-      return response;
+      return { success: true, paymentInfos: paymentData };
     },
     onSuccess: () => {
       setLoading(false);
@@ -63,10 +55,13 @@ const Checkout = () => {
     },
   });
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     setLoading(true);
     try {
-      mutation.mutate();
+      const payment = localStorage.getItem("payment");
+      const paymentInfos = JSON.parse(payment!);
+
+      await mutation.mutateAsync(paymentInfos);
     } catch (error) {
       console.log("mutation Error: ", error);
     }
@@ -98,8 +93,18 @@ const Checkout = () => {
           type="text"
         />
         <span className="flex">
-          <CustomInput formik={formik} placeholder="12 23" name="expirationDate" type="text" />
-          <CustomInput formik={formik} placeholder="12" name="cvv" type="text" />
+          <CustomInput
+            formik={formik}
+            placeholder="12 23"
+            name="expirationDate"
+            type="text"
+          />
+          <CustomInput
+            formik={formik}
+            placeholder="12"
+            name="cvv"
+            type="text"
+          />
         </span>
       </span>
       <span className="flex flex-col space-y-1">
