@@ -2,7 +2,7 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import CustomInput from "./form-inputs/CustomInput";
 import RadioInput from "./form-inputs/RadioInput";
@@ -71,6 +71,11 @@ const Checkout = () => {
       console.log("mutation Error", error);
     }
   };
+
+  useEffect(() => {
+    console.log("cardtype====>", formik.values.cardType);
+    console.log("errors====>", formik.errors.cardType);
+  }, [formik.values, formik.errors]);
 
   return (
     <div className="flex flex-col space-y-4">

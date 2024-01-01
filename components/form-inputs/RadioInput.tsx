@@ -13,16 +13,12 @@ const RadioInput: React.FC<InputProps> = ({
   label,
   name,
   onChange,
-  value
+  value,
 }) => {
-  const error = formik.errors[name];
-  const touched = formik.touched[name];
+  const handleChange = (e: any) => {
+    const value = e.target.value;
 
-  const handleChange = (event: any) => {
-    const value = event.target.value;
-
-    formik.setFieldValue(name, value, formik.validateOnChange);
-
+    formik.setFieldValue(name, value, formik.validateOnBlur);
     formik.setFieldTouched(
       name,
       value !== formik.initialValues[name],

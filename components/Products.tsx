@@ -18,12 +18,12 @@ const Products = () => {
     const customer = JSON.stringify(data.customer);
     localStorage.setItem("user", customer);
   }
-  
+
   if (data?.paymentMethod) {
     const payment = JSON.stringify(data.paymentMethod);
     localStorage.setItem("payment", payment);
   }
-  console.log("data===>", data);
+  // console.log("data===>", data);
 
   if (isLoading) return <div>isLoading...</div>;
   if (isError) return <div>Error during fetch , try again </div>;
