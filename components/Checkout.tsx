@@ -52,6 +52,7 @@ const Checkout = () => {
     },
     onSuccess: () => {
       setLoading(false);
+      formik.resetForm();
       console.log("Checkout successful");
     },
     onError: (error) => {
@@ -69,41 +70,36 @@ const Checkout = () => {
   };
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-4">
       <span>Paycheck</span>
-      <div>
-        <span className="flex flex-col space-y-2">
-          <CustomInput
-            formik={formik}
-            label="Email"
-            name="email"
-            type="email"
-          />
+      <span className="flex flex-col space-y-2">
+        <CustomInput formik={formik} label="Email" name="email" type="email" />
+      </span>
+      <span className="flex flex-col space-y-2">
+        <CustomInput
+          formik={formik}
+          label="Card information"
+          name="cardNumber"
+          type="text"
+        />
+        <span className="flex">
+          <CustomInput formik={formik} name="expirationDate" type="text" />
+          <CustomInput formik={formik} name="cvv" type="text" />
         </span>
-        <span className="flex flex-col space-y-2">
-          <CustomInput
-            formik={formik}
-            label="Card information"
-            name="cardNumber"
-            type="text"
-          />
-          <span className="flex">
-            <CustomInput formik={formik} name="expirationDate" type="text" />
-            <CustomInput formik={formik} name="cvv" type="text" />
-          </span>
-        </span>
-        <span className="flex flex-col space-y-2">
-          <CustomInput
-            formik={formik}
-            label="Cardholder name"
-            name="name"
-            type="text"
-          />
-        </span>
-      </div>
+      </span>
+      <span className="flex flex-col space-y-2">
+        <CustomInput
+          formik={formik}
+          label="Cardholder name"
+          name="name"
+          type="text"
+        />
+      </span>
       <button
-        disabled={loading}
-        className="bg-red-300"
+        disabled={loading || !formik.isValid || !formik.dirty}
+        className={`bg-red-300 relative ${
+          loading || !formik.isValid ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
         onClick={handleCheckout}
       >
         {loading ? "Loading..." : "Checkout"}
