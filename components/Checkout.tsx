@@ -14,7 +14,7 @@ const submit = async (paymentInfos: any) => {
 };
 
 const Checkout = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -68,7 +68,7 @@ const Checkout = () => {
     try {
       mutation.mutate();
     } catch (error) {
-      console.log("mutation Error", error);
+      console.log("mutation Error: ", error);
     }
   };
 
@@ -120,7 +120,7 @@ const Checkout = () => {
       />
       <button
         disabled={loading || !formik.isValid || !formik.dirty}
-        className={`bg-[#0D2538] hover:bg-[#1B4B72] text-white relative ${
+        className={`bg-[#0D2538] rounded-xl text-white relative ${
           loading || !formik.isValid || !formik.dirty
             ? "cursor-not-allowed"
             : "cursor-pointer"
