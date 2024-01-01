@@ -19,13 +19,17 @@ const Products = () => {
     localStorage.setItem("user", customer);
   }
 
+  // for testing purposes, i know payment data should be stored in a safe place not accessible place
   if (data?.paymentMethod) {
     const payment = JSON.stringify(data.paymentMethod);
     localStorage.setItem("payment", payment);
   }
   // console.log("data===>", data);
 
-  if (isLoading) return <div>isLoading...</div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center w-96">isLoading...</div>
+    );
   if (isError) return <div>Error during fetch , try again </div>;
   return (
     <div className="flex flex-col px-6 bg-white rounded-lg shadow-md w-96 p-3 gap-2">
