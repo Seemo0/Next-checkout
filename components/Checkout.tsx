@@ -1,7 +1,10 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
+import { useFormik } from "formik";
 import React, { useState } from "react";
+import * as Yup from "yup";
+import CustomInput from "./CustomInput";
 
 const submit = async (paymentInfos: any) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -11,6 +14,32 @@ const submit = async (paymentInfos: any) => {
 
 const Checkout = () => {
   const [loading, setLoading] = useState(false);
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      name: "",
+      email: "",
+      cardNumber: "",
+      expirationDate: "",
+      cvv: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required().min(3, "at least 3 letters"),
+      email: Yup.string()
+        .matches(
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          "Email must be a valid email address"
+        )
+        .required("Email is required"),
+      cardNumber: Yup.number().required(),
+      cvv: Yup.number().required(),
+      expirationDate: Yup.number().required(),
+    }),
+    onSubmit: (values) => {
+      console.log("values==>", values);
+    },
+  });
 
   const mutation = useMutation({
     mutationKey: ["checkout"],
@@ -44,22 +73,32 @@ const Checkout = () => {
       <span>Paycheck</span>
       <div>
         <span className="flex flex-col space-y-2">
-          <label htmlFor="email">Email</label>
-          <input type="text" name="email" />
+          <CustomInput
+            formik={formik}
+            label="Email"
+            name="email"
+            type="email"
+          />
         </span>
         <span className="flex flex-col space-y-2">
-          <label htmlFor="card">Card Information</label>
-          <span className="flex flex-col">
-            <input type="text" name="card" />
-            <span>
-              <input type="text" name="card" />
-              <input type="text" name="card" />
-            </span>
+          <CustomInput
+            formik={formik}
+            label="Card information"
+            name="cardNumber"
+            type="text"
+          />
+          <span className="flex">
+            <CustomInput formik={formik} name="expirationDate" type="text" />
+            <CustomInput formik={formik} name="cvv" type="text" />
           </span>
         </span>
         <span className="flex flex-col space-y-2">
-          <label htmlFor="user">Cardholder name</label>
-          <input type="text" name="user" />
+          <CustomInput
+            formik={formik}
+            label="Cardholder name"
+            name="name"
+            type="text"
+          />
         </span>
       </div>
       <button
