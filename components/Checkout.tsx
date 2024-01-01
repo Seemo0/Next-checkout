@@ -4,7 +4,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
-import CustomInput from "./CustomInput";
+import CustomInput from "./form-inputs/CustomInput";
+import RadioInput from "./form-inputs/RadioInput";
 
 const submit = async (paymentInfos: any) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -23,6 +24,7 @@ const Checkout = () => {
       cardNumber: "",
       expirationDate: "",
       cvv: "",
+      cardType: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required().min(3, "at least 3 letters"),
@@ -35,6 +37,7 @@ const Checkout = () => {
       cardNumber: Yup.number().required(),
       cvv: Yup.number().required(),
       expirationDate: Yup.number().required(),
+      cardType: Yup.string().required("Please select a payment method"),
     }),
     onSubmit: (values) => {
       console.log("values==>", values);
@@ -75,7 +78,7 @@ const Checkout = () => {
       <span className="flex flex-col space-y-2">
         <CustomInput formik={formik} label="Email" name="email" type="email" />
       </span>
-      <span className="flex flex-col space-y-2">
+      <span className="flex flex-col space-y-1">
         <CustomInput
           formik={formik}
           label="Card information"
@@ -87,25 +90,29 @@ const Checkout = () => {
           <CustomInput formik={formik} name="cvv" type="text" />
         </span>
       </span>
-      <span className="flex flex-col space-y-2">
+      <span className="flex flex-col space-y-1">
         <label htmlFor="cardType">Payment method</label>
-        <span className="flex items-start space-x-3">
-          <span>
-            <input type="radio" name="cardType" /> Credit Card
-          </span>
-          <span>
-            <input type="radio" name="cardType" /> Debit Card
-          </span>
+        <span className="flex space-x-4">
+          <RadioInput
+            name="cardType"
+            label="Credit Card"
+            value="credit"
+            formik={formik}
+          />
+          <RadioInput
+            name="cardType"
+            label="Debit Card"
+            value="debit"
+            formik={formik}
+          />
         </span>
       </span>
-      <span className="flex flex-col space-y-2">
-        <CustomInput
-          formik={formik}
-          label="Cardholder name"
-          name="name"
-          type="text"
-        />
-      </span>
+      <CustomInput
+        formik={formik}
+        label="Cardholder name"
+        name="name"
+        type="text"
+      />
       <button
         disabled={loading || !formik.isValid || !formik.dirty}
         className={`bg-[#0D2538] hover:bg-[#1B4B72] text-white relative ${
