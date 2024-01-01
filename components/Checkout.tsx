@@ -88,6 +88,17 @@ const Checkout = () => {
         </span>
       </span>
       <span className="flex flex-col space-y-2">
+        <label htmlFor="cardType">Payment method</label>
+        <span className="flex items-start space-x-3">
+          <span>
+            <input type="radio" name="cardType" /> Credit Card
+          </span>
+          <span>
+            <input type="radio" name="cardType" /> Debit Card
+          </span>
+        </span>
+      </span>
+      <span className="flex flex-col space-y-2">
         <CustomInput
           formik={formik}
           label="Cardholder name"
@@ -97,8 +108,10 @@ const Checkout = () => {
       </span>
       <button
         disabled={loading || !formik.isValid || !formik.dirty}
-        className={`bg-red-300 relative ${
-          loading || !formik.isValid ? "cursor-not-allowed" : "cursor-pointer"
+        className={`bg-[#0D2538] hover:bg-[#1B4B72] text-white relative ${
+          loading || !formik.isValid || !formik.dirty
+            ? "cursor-not-allowed"
+            : "cursor-pointer"
         }`}
         onClick={handleCheckout}
       >
