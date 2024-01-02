@@ -19,3 +19,8 @@ Install dependencies and run the development server.
 ```bash
 npm i && npm run dev
 ```
+
+Run this command for testing the app
+```bash
+npm run cypress:open  
+```
