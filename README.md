@@ -20,7 +20,7 @@ Install dependencies and run the development server.
 npm i && npm run dev
 ```
 
-Run this command for testing the app
+Run this command for testing the app, you should be able to run the tests via their GUI.
 ```bash
 npm run cypress:open  
 ```
