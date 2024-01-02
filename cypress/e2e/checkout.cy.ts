@@ -1,4 +1,3 @@
-
 describe('Checkout Process', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000');

@@ -1,5 +1,3 @@
-// cypress/integration/products.spec.ts
-
 describe('Products Component', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000'); 
