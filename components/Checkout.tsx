@@ -82,6 +82,7 @@ const Checkout = () => {
           name="email"
           placeholder="type your email"
           type="email"
+          data-cy="email"
         />
       </span>
       <span className="flex flex-col space-y-1">

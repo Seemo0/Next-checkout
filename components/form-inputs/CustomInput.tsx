@@ -44,6 +44,7 @@ const CustomInput: React.FC<InputProps> = ({
       <input
         type={type}
         placeholder={placeholder}
+        id={name}
         name={name}
         value={formik.values[name]}
         onChange={onChange ?? handleChange}
